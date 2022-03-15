@@ -4,21 +4,23 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
 
 i18n
-  .use(initReactI18next)
-  .use(LanguageDetector)
-  .use(HttpApi)
+.use(LanguageDetector)
+.use(HttpApi)
+.use(initReactI18next)
   .init({
-    debug: true,
+    debug: false,
     fallbackLng: 'en',
-    interpolation: { escapeValue: false },
+    interpolation: { escapeValue: false, formatSeparator: ',' },
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag', 'path', 'subdomain'],
       caches: ['localStorage']
     },
     backend: {
-      loadPath: '/locales/{{lng}}/translation.json'
+      loadPath: '/locales/{{ns}}/{{lng}}.json'
     },
-    // react: { useSuspense: false }
+    supportedLngs: ['en', 'gu'],
+    ns: ['common', 'login'],
+    react: { wait: true, useSuspense: false }
   });
 
 export default i18n;

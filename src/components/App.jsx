@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import i18n from '../i18n';
 import { useTranslation } from 'react-i18next';
 
 function App() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'login']);
   const [lang, setLang] = useState('en');
+
+  useEffect(() => {
+    const userLang = localStorage.getItem('i18nextLng');
+    if (userLang) {
+      setLang(userLang);
+    }
+  }, []);
 
   function changeLanguage(e) {
     const lang = e.currentTarget.dataset.lang;
@@ -17,7 +24,7 @@ function App() {
     <>
       <div className="header">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <span className="navbar-brand">{t('appName')}</span>
+          <span className="navbar-brand">{t('appName', { ns: 'common' })}</span>
           <ul className="navbar-nav ml-auto">
             <li className="nav-item dropdown">
               <div
@@ -54,36 +61,38 @@ function App() {
       <div className="container">
         <div className="jumbotron jumbotron-fluid">
           <div className="container">
-            <h1 className="display-4">{t('hiMessage')}</h1>
-            <p className="lead">{t('welcomeMessage')}</p>
+            <h1 className="display-4">{t('common:hiMessage')}</h1>
+            <p className="lead">{t('common:welcomeMessage')}</p>
           </div>
         </div>
 
         <form style={{ maxWidth: '400px', margin: 'auto' }}>
           <div className="form-group">
-            <label htmlFor="exampleInputEmail1">{t('labelEmail')}</label>
+            <label htmlFor="exampleInputEmail1">{t('login:labelEmail')}</label>
             <input
               type="email"
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
-              placeholder="Enter email"
+              placeholder={t('login:labelEmail')}
             />
             <small id="emailHelp" className="form-text text-muted">
-              {t('captionEmail')}
+              {t('login:captionEmail')}
             </small>
           </div>
           <div className="form-group">
-            <label htmlFor="exampleInputPassword1">{t('labelPassword')}</label>
+            <label htmlFor="exampleInputPassword1">
+              {t('login:labelPassword')}
+            </label>
             <input
               type="password"
               className="form-control"
               id="exampleInputPassword1"
-              placeholder="Password"
+              placeholder={t('login:labelPassword')}
             />
           </div>
           <button type="submit" className="btn btn-primary">
-            {t('captionSubmit')}
+            {t('common:captionSubmit')}
           </button>
         </form>
       </div>
