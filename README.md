@@ -26,4 +26,4 @@ https://github.com/i18next/i18next-http-backend
 
 ## Authors
 
-**Aniruddh Purohit** aniruddhpurohit@hotmail.com
+Aniruddh Purohit
